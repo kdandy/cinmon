@@ -1,0 +1,68 @@
+{% extends "components/base.html"%} {%block title%}My lists{%endblock%} {%block
+content%}
+<!-- navbar -->
+<p hidden>{%block navhome%}{%endblock%} {%block navlist%}active{%endblock%}</p>
+<div class="mt-5">
+  <div class="breadcrumb-option">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="breadcrumb__links">
+            <a href="/"><i class="fa fa-home"></i> Home</a>
+            <a href="/mylist">Opyion</a>
+            <span>My lists</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="p-5">
+    {%if row == []%}
+    <div class="row justify-content-center">
+      <div id="carouselExampleSlidesOnly" class="carousel">
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              class="d-block"
+              src="{{url_for('static',filename='image/sorry.png')}}"
+              alt="movie list is empty"
+              style="width: 250px; margin: 0 auto"
+            />
+            <h5 class="text-light p-5">
+              Sorry you don't have saved movie yet!!
+            </h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    {%else%}
+    <div class="row d-flex">
+      {%for data in row%}
+      <div class="col-4">
+        <div
+          class="card bg-dark text-white mb-3"
+          style="height: fit-content; width: fit-content"
+        >
+          <img
+            class="card-img"
+            src="https://image.tmdb.org/t/p/w500{{data.poster_path}}"
+            alt="{{data.movie_name}}"
+          />
+          <div class="card-img-overlay"></div>
+        </div>
+        <a href="detail/{{data.movie_id}}" class="text-white card-title"
+          >{{data.movie_name}}</a
+        >
+        <a href="delete/{{data.id}}" class="text-white card-title text-danger"
+          >| delete from list</a
+        >
+      </div>
+
+      {%endfor%}
+    </div>
+
+    {%endif%}
+  </div>
+</div>
+
+{%endblock%}
